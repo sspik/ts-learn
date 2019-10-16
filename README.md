@@ -1,1 +1,1 @@
-http://typescript-lang.ru/docs/Interfaces.html#Гибридные%20типы
+http://typescript-lang.ru/docs/Classes.html#Абстрактные классы

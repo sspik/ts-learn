@@ -136,5 +136,28 @@ function getCounter(): ICounter {
   const counter = function (start: number) {} as ICounter;
   counter.interval = 123;
   counter.reset = function () {};
-  return counter
+  return counter // Если у интерфейса явно не указан возврат void или any, то она должна что-то возвращать
 }
+
+/*
+ Интерфейсы, расширяющие классы
+*/
+
+class Control {
+  private state: any;
+}
+
+interface ISelectableControl extends Control {
+  select(): void;
+}
+
+class Button extends Control implements ISelectableControl {
+  select(): void {};
+
+}
+
+class TextButton extends Control {
+  select(){}
+}
+
+// TODO Тут непонятно.
