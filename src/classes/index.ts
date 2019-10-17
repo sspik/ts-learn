@@ -191,7 +191,7 @@ grid2.calculateDistanceFromOrigin({x: 50, y: 5});
  Абстрактные классы
 */
 
-abstract class Departament {
+abstract class Department {
 
   constructor(public name: string) {}
 
@@ -201,7 +201,7 @@ abstract class Departament {
 
 }
 
-class AccountDepartament extends Departament {
+class AccountDepartment extends Department {
 
   constructor(){
     super("Депртамент аккаунтов :D");
@@ -213,3 +213,6 @@ class AccountDepartament extends Departament {
     console.log("Создание отчёта...")
   }
 }
+let department = new AccountDepartment();
+// departament = new Departament(); От абстрактного класса нельзя создать объект
+
