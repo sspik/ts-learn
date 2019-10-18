@@ -22,6 +22,7 @@ console.log(z); // 110 - функция изменила внешнюю пере
 z = 50;
 console.log(addToZ(5,5)); // 60
 
+
 /*
  Типы функций
 */
@@ -30,6 +31,7 @@ let myAddType: (x: number, y: number) => number =
   function (x=5, y=5) {
     return x + y;
   };
+
 
 /*
  Опциональные параметры функции
@@ -46,6 +48,7 @@ function buildName1(firstName: string, lastName?: string): string { // Тепе�
   return lastName ? `${firstName} ${lastName}` : firstName;
 }
 
+
 /*
  Остаточные параметы
 */
@@ -57,8 +60,10 @@ function buildName2(firstName: string, lastName: string, ...other: string[]) { /
 let employeeName = buildName2('Олег', 'Кодзь', '1990', 'года рожения');
 console.log(employeeName); // Олег Кодзь 1990 года рожения
 
+
 /*
  Параметры this
+ this становится тем объектом, откуда вызвана функция.
 */
 
 interface ICard {
@@ -88,3 +93,45 @@ let deck: IDeck =  {
     }
   }
 };
+
+function noThis(this: void) {} // Гарантия того, что this использовать нельзя
+
+
+/*
+ this в колбеках
+*/
+
+interface IElement {
+  // this: void указывает на то, что нельзя передавать явный this
+  addClickListener(onClink: (this: void, e: Event) => void): void
+}
+
+
+/*
+ Перегрузки
+ Мутная фигня, я бы не стал использовать такой код
+*/
+
+let suits = ['Черви', 'Бубны', 'Крести', 'Пики'];
+function pickCard(x: {suit: string, card: number}[]): number;
+function pickCard(x: number): {suit: string; card: number; };
+function pickCard(x: any): any {
+
+  function fromSuit(suit: object): number {
+    // На вход может придти объект или массив
+    return Math.floor(Math.random() * Object.keys(suit).length)
+  }
+
+  function fromCardNumber(cardNumber: number): ICard { // ICard объявлен выше
+    // Но может и число
+    let pickedSuit = Math.floor(cardNumber / 13);
+    return {suit: suits[pickedSuit], card: x % 13}
+  }
+
+  if (typeof x === "object"){
+    return fromSuit(x)
+  }
+  if (typeof x === "number"){
+    return fromCardNumber(x)
+  }
+}
