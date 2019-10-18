@@ -1,1 +1,1 @@
-http://typescript-lang.ru/docs/Classes.html#Абстрактные классы
+http://typescript-lang.ru/docs/Generics.html
